@@ -778,7 +778,7 @@ bool Mat_COL<T>::resize(int M, int N, bool bInit, T x)
     this->destroy();      // clear allocation, zero all members
     if ((M>0) && (N>0)) 
     {
-      initialize(M*N, bInit, x);
+      this->initialize(M*N, bInit, x);
       set_pointers(M, N);
     }
   }

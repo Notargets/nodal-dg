@@ -439,7 +439,7 @@ Euler2D: libEUL libNDG libBlasLapack
 	$(LD) $(CXXFLAGS) -o bin/Euler2D Src/Examples2D/CurvedEuler2D/CurvedEuler2D_main.cpp -L./Lib -lEUL -lNDG $(BLASLAPACKLIBS) -lm
 
 Prep:
-	mkdir Lib bin	
+	mkdir -p Lib bin	
 
 clean:
 	rm -f $(OBJS) 

@@ -12,6 +12,7 @@
 // TODO: regions of sparse matrices
 #include "CS_SpReg2D.h"
 
+#include <math.h>
 
 // typedef versions for certain data types
 template <typename T> class CS;
