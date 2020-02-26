@@ -5,8 +5,9 @@ INCLUDES = -I./Include
 CXXFLAGS = $(CXXOPTIONS) $(OPTFLAGS) $(INCLUDES)
 FCFLAGS = $(FCOPTIONS) $(OPTFLAGS)
 
-.SUFFIXES: .cpp .f
+CXXFLAGS += -Wno-write-strings
 
+.SUFFIXES: .cpp .f
 
 OBJS = \
   Src/Arrays/ArrayMacros.o  \
@@ -383,7 +384,7 @@ BLASOBJS = \
 .f.o:
 	$(FC) $(FCFLAGS) -o $*.o -c $*.f
 
-libBlasLapack: $(BLASOBJS)
+libBlasLapack: $(BLASOBJS) Prep
 	$(AR) libBlasLapack.a $(BLASOBJS)
 	$(RANLIB) libBlasLapack.a
 	$(MV) libBlasLapack.a ./Lib
@@ -436,6 +437,9 @@ CurvedINS2D: libNDG libINS libBlasLapack
 
 Euler2D: libEUL libNDG libBlasLapack
 	$(LD) $(CXXFLAGS) -o bin/Euler2D Src/Examples2D/CurvedEuler2D/CurvedEuler2D_main.cpp -L./Lib -lEUL -lNDG $(BLASLAPACKLIBS) -lm
+
+Prep:
+	mkdir Lib bin	
 
 clean:
 	rm -f $(OBJS) 
