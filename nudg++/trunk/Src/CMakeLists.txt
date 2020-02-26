@@ -1,7 +1,27 @@
 cmake_minimum_required(VERSION 3.15)
-project(Euler2D)
+project(NDG)
 
 set(CMAKE_CXX_STANDARD 14)
+
+include_directories(../Include)
+
+find_library(BLAS libBlasLapack.a
+        PATHS /home/llonergan/src/github.com/notargets/nodal-dg/nudg++/trunk/Lib)
+
+add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings)
+
+add_executable(Advect1D
+        Codes1D/GradJacobiP.cpp
+        Codes1D/JacobiGL.cpp
+        Codes1D/JacobiGQ.cpp
+        Codes1D/JacobiP.cpp
+        Codes1D/Vandermonde1D.cpp
+        ServiceRoutines/LOG.cpp
+        ServiceRoutines/Global_funcs.cpp
+        Arrays/Mat_COL.cpp
+        Arrays/ArrayMacros.cpp)
+
+target_link_libraries(Advect1D ${BLAS} gfortran quadmath)
 
 add_executable(Euler2D
         Arrays/ArrayMacros.cpp
@@ -83,12 +103,6 @@ add_executable(Euler2D
         Sparse/CS_Solve.cpp
         Sparse/CS_Utils.cpp)
 
-include_directories(../Include)
-
-find_library(BLAS libBlasLapack.a
-        PATHS /home/llonergan/src/github.com/notargets/nodal-dg/nudg++/trunk/Lib)
-
 target_link_libraries(Euler2D ${BLAS} gfortran quadmath)
 
-add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings)
 
