@@ -1,11 +1,11 @@
-// NDG2D.h
-// interface implemented by 2D solvers
+// NDG1D.h
+// interface implemented by 1D solvers
 // 2008/08/16
 //---------------------------------------------------------
-#ifndef NDG__NDG_22D_H__INCLUDED
-#define NDG__NDG_22D_H__INCLUDED
+#ifndef NDG__NDG_1D_H__INCLUDED
+#define NDG__NDG_1D_H__INCLUDED
 
-#include "Globals2D.h"
+#include "Globals1D.h"
 #include "Stopwatch.h"
 
 // sparse matrix
@@ -19,12 +19,12 @@
 
 
 //---------------------------------------------------------
-class NDG2D : public Globals2D
+class NDG1D : public Globals1D
 //---------------------------------------------------------
 {
 public:
-  NDG2D();
-  virtual ~NDG2D();
+  NDG1D();
+  virtual ~NDG1D();
   virtual void Driver()=0;  // All simulators implement Driver()
 
   const char* GetClassName() const      { return class_name.c_str(); }
@@ -43,37 +43,37 @@ protected:
 
 
   // Setup routines
-  bool    StartUp2D();
-  DMat&   Lift2D();
-  void    Normals2D();
-  void    BuildMaps2D();
-  void    BuildBCMaps2D();
-  void    BuildPeriodicMaps2D(double xperiod, double yperiod);
-  void    MakeCylinder2D(const IMat& faces, double ra, double xo, double yo);
+  bool    StartUp1D();
+  DMat&   Lift1D();
+  void    Normals1D();
+  void    BuildMaps1D();
+  void    BuildBCMaps1D();
+  void    BuildPeriodicMaps1D(double xperiod, double yperiod);
+  void    MakeCylinder1D(const IMat& faces, double ra, double xo, double yo);
   void    CalcElemCentroids(DMat& centroid);
 
-  bool    MeshReaderGambit2D(const string& fname);
+  bool    MeshReaderGambit1D(const string& fname);
   bool    load_BF_group(istream& is, char* buf);
   void    AdjustCylBC(double radius, double Cx, double Cy, int bc=BC_Cyl, bool toWall=false);
 
-  void    Dmatrices2D();
-  void    Dmatrices2D(int N, Cub2D& cub); // high-order cubature
+  void    Dmatrices1D();
+  void    Dmatrices1D(int N, Cub1D& cub); // high-order cubature
 
-  void    GeometricFactors2D();
-  void    GeometricFactors2D(Cub2D& cub); // high-order cubature
+  void    GeometricFactors1D();
+  void    GeometricFactors1D(Cub1D& cub); // high-order cubature
 
-  void    dtscale2D(DVec& dtscale);
+  void    dtscale1D(DVec& dtscale);
 
-  void    BuildCurvedOPS2D(int Nc);
-  void    InterpMatrix2D(Cub2D& cub);
-  DMat&   InterpMatrix2D(const DVec&, const DVec&);
+  void    BuildCurvedOPS1D(int Nc);
+  void    InterpMatrix1D(Cub1D& cub);
+  DMat&   InterpMatrix1D(const DVec&, const DVec&);
 
   // cubature and quadrature routines
-//Cub2D&    BuildCubatureMesh2D(int Corder);
-  Cub2D&    CubatureVolumeMesh2D(int Corder);
-  Gauss2D&  GaussFaceMesh2D(int NGauss);
+//Cub1D&    BuildCubatureMesh1D(int Corder);
+  Cub1D&    CubatureVolumeMesh1D(int Corder);
+  Gauss1D&  GaussFaceMesh1D(int NGauss);
 
-  void PhysDmatrices2D(
+  void PhysDmatrices1D(
     const DVec& x1,     // [in]
     const DVec& y1,     // [in]
     const DMat& interp, // [in]
@@ -81,7 +81,7 @@ protected:
           DMat& Dy);    // [out]
 
 
-  void CurvedDGGrad2D (
+  void CurvedDGGrad1D (
     const DMat& cU,       // [in]
     const DMat& gU,       // [in]
     const IVec& gmapD,    // [in]
@@ -90,7 +90,7 @@ protected:
           DMat& dUdy);    // [out]
 
 
-  DMat& CurvedDGDiv2D (
+  DMat& CurvedDGDiv1D (
     const DMat& cU,       // [in]
     const DMat& cV,       // [in]
     const DMat& gU,       // [in]
@@ -99,7 +99,7 @@ protected:
     const DVec& bcNdotU); // [in]
 
 
-  DMat& CurvedDGJump2D (
+  DMat& CurvedDGJump1D (
       const DMat& gU,     // [in]
       const IVec& gmapD,  // [in]
       const DVec& bcU);   // [in]
@@ -107,9 +107,9 @@ protected:
 
 
 /*
-  void CurvedDGPenalty2D(
-          Cub2D&   cub,   // [in]
-          Gauss2D& gauss, // [in]
+  void CurvedDGPenalty1D(
+          Cub1D&   cub,   // [in]
+          Gauss1D& gauss, // [in]
     const IVec& straight, // [in]
     const IVec& curved,   // [in]
     const DMat& cU,       // [in]
@@ -120,7 +120,7 @@ protected:
 */
 
 /*
-  void CubatureVolumeMatrices2D(
+  void CubatureVolumeMatrices1D(
     int   Corder,     // [in]
     CSd&  cphi,       // [out] sparse
     CSd&  cdphidx,    // [out] sparse
@@ -130,26 +130,26 @@ protected:
     CSd&  cmm);       // [out] sparse
 */
 
-  void CurvedPoissonIPDG2D(
-    Gauss2D&  gauss,  // [in]
-    Cub2D&    cub,    // [in]
+  void CurvedPoissonIPDG1D(
+    Gauss1D&  gauss,  // [in]
+    Cub1D&    cub,    // [in]
     CSd&      spOP,   // [out] sparse
     CSd&      spMM);  // [out] sparse
 
-  void CurvedPoissonIPDGbc2D(
-    Gauss2D&  gauss,  // [in]
+  void CurvedPoissonIPDGbc1D(
+    Gauss1D&  gauss,  // [in]
     CSd&      spOP);  // [out] sparse
 
 
-  void Sample2D(double  xout,           // [in]
+  void Sample1D(double  xout,           // [in]
                 double  yout,           // [in]
                 DVec&   sampleweights,  // [out]
                 int&    sampletri);     // [out]
 
   // FInfo*    neighbors;   // information for non-conforming faces
-  // void BuildHNonCon2D(int NGauss, double tol, FInfo*& neighbors);
+  // void BuildHNonCon1D(int NGauss, double tol, FInfo*& neighbors);
 
-  void    FindLocalCoords2D(
+  void    FindLocalCoords1D(
                int k,   // [in]
     const DVec& xout,   // [in]
     const DVec& yout,   // [in]
@@ -159,7 +159,7 @@ protected:
 #if (THIS_IS_READY)
   //#######################################################
 
-  void    PartialLiftData2D(
+  void    PartialLiftData1D(
     int k1, int f1,       // [in]
     int k2, int f2,       // [in]
     int     noncon,       // [in]
@@ -171,7 +171,7 @@ protected:
     DMat& gradphiplus);   // [out]
 
 
-  void    PartialGaussData2D(
+  void    PartialGaussData1D(
     int k1, int f1,   // [in]
     int k2, int f2,   // [in]
     double tol,       // [in]
@@ -184,7 +184,7 @@ protected:
     double& hinv);    // [out]
 
 
-  void    GaussTraceMatrices2D(
+  void    GaussTraceMatrices1D(
     double tol,         // [in]
     int NGauss,         // [in]
     CSd&   gphiminus,   // [out]
@@ -202,20 +202,20 @@ protected:
   //-------------------------------------
   // DG functions
   //-------------------------------------
-  void Div2D(const DMat& u,     // [in]
+  void Div1D(const DMat& u,     // [in]
              const DMat& v,     // [in]
                    DMat& divu); // [out]
 
 
-  void Grad2D(const DMat& u,    // [in]
+  void Grad1D(const DMat& u,    // [in]
                     DMat& ux,   // [out]
                     DMat& uy);  // [out]
 
-  void Curl2D(const DMat& ux,   // [in]
+  void Curl1D(const DMat& ux,   // [in]
               const DMat& uy,   // [in]
                     DMat& vz);  // [out]
 
-  void Curl2D(const DMat& ux,   // [in]
+  void Curl1D(const DMat& ux,   // [in]
               const DMat& uy,   // [in]
               const DMat& uz,   // [in]
                     DMat& vx,   // [out]
@@ -226,21 +226,21 @@ protected:
   //-------------------------------------
   // Filters
   //-------------------------------------
-  DMat&   Filter2D(int Norder, int Nc, double sp);
-  DMat&   CutOffFilter2D(int Nc, double frac);
+  DMat&   Filter1D(int Norder, int Nc, double sp);
+  DMat&   CutOffFilter1D(int Nc, double frac);
   void    filter_Q(const DMat& filter, DMat& Q);
 
   //-------------------------------------
   // Mesh adaptivity
   //-------------------------------------
-  DMat& ConformingHrefine2D(IMat& edgerefineflag, const DMat& Qin);
-  void            Hrefine2D(IVec& refineflag);
+  DMat& ConformingHrefine1D(IMat& edgerefineflag, const DMat& Qin);
+  void            Hrefine1D(IVec& refineflag);
 
 
   //-------------------------------------
   // Output functions
   //-------------------------------------
-  void Triangulation2D(int Np, IMat& alltri);
+  void Triangulation1D(int Np, IMat& alltri);
 
   // render selected solution fields
   void OutputVTK(const DMat& FData, int order, int zfield=0);
@@ -251,7 +251,7 @@ protected:
   // Utility routines
   void OutputSampleXYZ(int sample_N, DMat &newX, DMat &newY, DMat &newZ, 
                        const DMat &FData, DMat &newFData, int zfield=0);
-  void OutputSampleELMT2D(int sample_N, IMat& ELMT);
+  void OutputSampleELMT1D(int sample_N, IMat& ELMT);
   void OutputNodes(bool bFaceNodes=false);
   void OutputNodes_cub();
   void OutputNodes_gauss();
@@ -327,11 +327,11 @@ protected:
   //-------------------------------------
   // static member data
   //-------------------------------------
-  static int    N2Dobjects;     // count of active simulators 
+  static int    N1Dobjects;     // count of active simulators 
   static int    PlotNumber;     // accumulated plot count
   static double TotalSimTime;   // accumulate time for multiple runs
 };
 
-extern NDG2D* g_D2;        // global pointer
+extern NDG1D* g_D2;        // global pointer
 
-#endif  // NDG__NDG_22D_H__INCLUDED
+#endif  // NDG__NDG_1D_H__INCLUDED
