@@ -13,23 +13,20 @@ Globals1D::Globals1D()
   //-------------------------------------
   Np(0), Nfp(0), N(0), K(0), Nfaces(3), 
   NODETOL(1e-12),
-  r("r"), s("s"),
-  Dr("Dr"), Ds("Ds"), LIFT("LIFT"), Drw("Drw"), Dsw("Dsw"), MassMatrix("MassMatrix"), 
-  Fx("Fx"), Fy("Fy"), nx("nx"), ny("ny"), jac("jac"), Fscale("Fscale"),
-  vmapB("vmapB"), mapB("mapB"), Fmask("Fmask"), BCType("BCType"), saveBCType("saveBCType"),
-   mapI( "mapI"),  mapO( "mapO"),  mapW( "mapW"),  mapF( "mapF"),  mapC( "mapC"),  mapS( "mapS"),  mapM( "mapM"),  mapP( "mapP"),  mapD( "mapD"),  mapN( "mapN"),
-  vmapI("vmapI"), vmapO("vmapO"), vmapW("vmapW"), vmapF("vmapF"), vmapC("vmapC"), vmapS("vmapS"), vmapM("vmapM"), vmapP("vmapP"), vmapD("vmapD"), vmapN("vmapN"),
-  rx("rx"), ry("ry"), sx("sx"), sy("sy"), J("J"), sJ("sJ"),
+  r("r"),
+  Dr("Dr"), LIFT("LIFT"), DVr("DVr"), MassMatrix("MassMatrix"),
+  Fx("Fx"), nx("nx"), Fscale("Fscale"),
+  vmapB("vmapB"), mapB("mapB"), Fmask("Fmask"),
+   mapI( "mapI"),  mapO( "mapO"),
+  vmapI("vmapI"), vmapO("vmapO"),
   rk4a("rk4a"), rk4b("rk4b"), rk4c("rk4c"),
-  EToE("EToE"), EToF("EToF"), EToV("EToV"), 
-  V("V"), invV("invV"), VVT("VVT"),
-  VX("VX"), VY("VY"), VZ("VZ"), x("x"), y("y"), z("z"),
+  EToE("EToE"), EToF("EToF"),
+  V("V"), invV("invV"),
+  VX("VX"), x("x"),
 
   tstep(0), Nsteps(0),
   dt(0.001), time(0.0), FinalTime(0.0), RKtime(0.0), 
-  pi(M_PI), eps(2.2204e-16),  // NBN: Matlab @ AMD64
-  Xmin(0.0), Xmax(0.0), Ymin(0.0), Ymax(0.0), Zmin(0.0), Zmax(0.0),
-  Nv(0), Nmats(0), Nbcs(0), Nsd(0),
+  pi(M_PI), eps(2.2204e-16)  // NBN: Matlab @ AMD64
   //-------------------------------------------------------
 {
   init();

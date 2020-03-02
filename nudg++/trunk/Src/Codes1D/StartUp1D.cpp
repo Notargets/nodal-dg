@@ -26,6 +26,11 @@ bool NDG1D::StartUp1D()
 
   MassMatrix = trans(invV)*invV;
 
+  /*
+  // Create surface integral terms
+  Lift1D();
+  Normals1D();
+
   // build coordinates of all the nodes
   IVec va = EToV(All,1), vb = EToV(All,2), vc = EToV(All,3);
 
@@ -43,14 +48,11 @@ bool NDG1D::StartUp1D()
 
   Fx = x(Fmask, All); Fy = y(Fmask, All);
 
-  // Create surface integral terms
-  Lift1D();
 
   // calculate geometric factors
   ::GeometricFactors1D(x,y,Dr,Ds,  rx,sx,ry,sy,J);
 
   // calculate geometric factors
-  Normals1D();
   Fscale = sJ.dd(J(Fmask,All));
 
 
@@ -72,4 +74,5 @@ bool NDG1D::StartUp1D()
   Drw = (V*trans(Vr))/VVT;  Dsw = (V*trans(Vs))/VVT;
 
   return true;
+   */
 }

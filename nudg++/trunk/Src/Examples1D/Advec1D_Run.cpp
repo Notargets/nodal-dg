@@ -14,20 +14,7 @@ void Advec1D::Run()
   // Purpose  : Integrate 2D Euler equations using a 4th order low storage RK
 
   InitRun();
-
-  // choose order to integrate exactly
-  CubatureOrder = (int)floor(2.0*(N+1)*3.0/2.0);
-  NGauss        = (int)floor(2.0*(N+1));
-
-  // build cubature node data for all elements
-  CubatureVolumeMesh2D(CubatureOrder);
-
-  // build Gauss node data for all element faces
-  GaussFaceMesh2D(NGauss);
-
-  Resize_cub();           // resize cubature arrays
-  MapGaussFaceData();     // {nx = gauss.nx}, etc.
-  PreCalcBdryData();      // gmapB = concat(mapI, mapO), etc.
+/*
   ti0=timer.read();       // time simulation loop
 
   // outer time step loop 
@@ -52,4 +39,5 @@ void Advec1D::Run()
 
   time_total = timer.read()-ti0;  // stop timing
   FinalReport();                  // final report
+  */
 }

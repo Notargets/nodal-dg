@@ -142,25 +142,7 @@ void Advec1D::Report(bool bForce)
 
   if (!umMOD(tstep,Nrender) || bForce)
   {
-
-#if (0)
-
-    Q_plot = Q;
-
-    // extract conserved variables, calculate 
-    // vorticity, and load this as 4th field:
-    DMat rho, rhou, rhov, u,v, curl;
-    rho.borrow(Np,K,Q.pCol(1)); rhou.borrow(Np,K,Q.pCol(2)); rhov.borrow(Np,K,Q.pCol(3));
-    u = rhou.dd(rho); v = rhov.dd(rho);
-    Curl2D(u, v, curl);
-    Q_plot(All,4) = curl;  
-    OutputVTK(Q_plot, NvtkInterp);
-
-#else
-
-    OutputVTK(Q, NvtkInterp);
-
-#endif
+    // Output solution
   }
 }
 

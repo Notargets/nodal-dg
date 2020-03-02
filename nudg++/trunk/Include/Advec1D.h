@@ -19,7 +19,6 @@ protected:
   virtual void Run();
 
   virtual void Resize();        // resize system arrays
-  virtual void Resize_cub();    // resize cubature arrays
   virtual void SetIC();
   virtual void SetStepSize();
   virtual void InitRun();

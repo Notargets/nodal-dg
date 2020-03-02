@@ -14,6 +14,7 @@ add_executable(Advect1D
         Examples1D/Advec1D.cpp
         Examples1D/Advec1D_main.cpp
         Examples1D/Advec1D_Driver.cpp
+        Examples1D/Advec1D_Run.cpp
         Codes1D/GradVandermonde1D.cpp
         Codes1D/StartUp1D.cpp
         Codes1D/NDG1D.cpp
@@ -22,6 +23,7 @@ add_executable(Advect1D
         Codes1D/JacobiGQ.cpp
         Codes1D/JacobiP.cpp
         Codes1D/Vandermonde1D.cpp
+        Codes1D/Globals1D.cpp
         ServiceRoutines/LOG.cpp
         ServiceRoutines/INIT.cpp
         ServiceRoutines/Global_funcs.cpp
