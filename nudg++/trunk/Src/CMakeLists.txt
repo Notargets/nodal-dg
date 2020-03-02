@@ -11,14 +11,19 @@ find_library(BLAS libBlasLapack.a
 add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings)
 
 add_executable(Advect1D
+        Examples1D/Advec1D.cpp
         Examples1D/Advec1D_main.cpp
         Examples1D/Advec1D_Driver.cpp
+        Codes1D/GradVandermonde1D.cpp
+        Codes1D/StartUp1D.cpp
+        Codes1D/NDG1D.cpp
         Codes1D/GradJacobiP.cpp
         Codes1D/JacobiGL.cpp
         Codes1D/JacobiGQ.cpp
         Codes1D/JacobiP.cpp
         Codes1D/Vandermonde1D.cpp
         ServiceRoutines/LOG.cpp
+        ServiceRoutines/INIT.cpp
         ServiceRoutines/Global_funcs.cpp
         Arrays/Mat_COL.cpp
         Arrays/ArrayMacros.cpp)

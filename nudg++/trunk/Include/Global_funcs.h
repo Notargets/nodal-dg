@@ -108,6 +108,7 @@ DMat&   Vandermonde1D(int N, const DVec& xp);
 DVec&   Simplex2DP(const DVec& a, const DVec& b, int i, int j);
 DVec&   GradJacobiP(const DVec& z,double alpha,double beta,int N);
 void    GradVandermonde2D(int N, const DVec& r, const DVec& s, DMat& V2Dr, DMat& V2Ds);
+DMat&   GradVandermonde1D(int N, const DVec& r);
 void    Nodes2D(int N, DVec& x, DVec& y);
 void    xytors(const DVec& x, const DVec& y, DVec& r, DVec& s);
 void    Dmatrices2D(int N, const DVec& r, const DVec& s, const DMat& V, DMat& Dr, DMat& Ds);

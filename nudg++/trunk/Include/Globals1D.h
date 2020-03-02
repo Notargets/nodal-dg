@@ -25,13 +25,15 @@ public:
   double  NODETOL;
   int Nfaces;
   DVec    r, x, VX;
-  DMat    Dr, Ds, LIFT, Drw, Dsw, MassMatrix;
+  DMat    Dr, LIFT, Drw, MassMatrix;
   DMat    Fx, nx, Fscale;
-  DMat    V, invV;
+  DMat    V, invV, DVr;
   IVec    vmapB, mapB, vmapM, vmapP;
   IVec    vmapI, vmapO, mapI, mapO;
   IMat    Fmask, EToE, EToF;
   DVec    rk4a, rk4b, rk4c;
+ int     tstep, Nsteps;
+ double  dt, time, FinalTime, RKtime, pi, eps;
 /*
 global N Nfp Np K
 global Nfaces EToE EToF

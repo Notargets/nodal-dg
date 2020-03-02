@@ -35,91 +35,11 @@ void Advec1D::Resize()
   resQ.resize(Np*K,  4);    // Runge-Kutta residual 
 }
 
-
-//---------------------------------------------------------
-void Advec1D::Resize_cub()
-//---------------------------------------------------------
-{
-  // resize cubature arrays
-  int Nc = m_cub.Ncub, Ng=m_gauss.NGauss; int Ngf=Ng*Nfaces*K;
-  // assumes cub and gauss are ready
-  assert(Nc>0 && Ng>0 && Ngf>0);
-  cQ.resize(Nc*K,4); cF.resize(Nc*K,4);  cG.resize(Nc*K,4);
-  gQ.resize(Ngf,4);  gQM.resize(Ngf,4);  gQP.resize(Ngf,4); 
-  flux.resize(Ngf,4);
-}
-
-
-//---------------------------------------------------------
-void Advec1D::MapGaussFaceData()
-//---------------------------------------------------------
-{
-  // override nodal face information with 
-  // Gauss nodal face information
-
-  this->nx   = m_gauss.nx;    this->ny   = m_gauss.ny; 
-  this->mapW = m_gauss.mapW;  this->mapI = m_gauss.mapI;
-  this->mapO = m_gauss.mapO;  this->mapB = m_gauss.mapB;
-  this->mapC = m_gauss.mapC;//this->mapS = m_gauss.mapS;
-}
-
-
-
-//---------------------------------------------------------
-void Advec1D::PreCalcBdryData()
-//---------------------------------------------------------
-{
-
-  //---------------------------------------------
-  // pre-calculated data for IsentropicVortex
-  //---------------------------------------------
-  if (eIsentropicVortex == sim_type) {
-    gmapB = concat(mapI, mapO, mapW);
-    gxB = m_gauss.x(gmapB);
-    gyB = m_gauss.y(gmapB);
-  }
-
-  //---------------------------------------------
-  // pre-calculated data for ChannelFlow
-  //---------------------------------------------
-  else if (eChannelFlow == sim_type) {
-    gmapB = m_gauss.mapB;
-    gxB = m_gauss.x(m_gauss.mapB);
-    gyB = m_gauss.y(m_gauss.mapB);
-  }
-
-  //---------------------------------------------
-  // pre-calculated data for CouetteFlow
-  //---------------------------------------------
-  else if (eCouetteFlow == sim_type)  {
-    gmapB = concat(mapI, mapO);
-    gxB = m_gauss.x(gmapB);
-    gyB = m_gauss.y(gmapB);
-
-    DVec   rad2B = sqr(gxB) + sqr(gyB);
-    DVec    radB = sqrt(rad2B);
-    DVec  thetaB = atan2(gyB, gxB);
-    DVec uthetaB = (-radB + 16.0/radB)/75.0;
-    DVec      pB = 1.0 + (1.0/SQ(75.0)) * (rad2B/2.0 - 32.0*log(radB) - 128.0/rad2B);
-
-    // store constant boundary data
-    rhoB  = ones(gmapB.size());
-    rhouB = (-sin(thetaB)).dm(uthetaB);
-    rhovB = ( cos(thetaB)).dm(uthetaB);
-    EnerB = pB/gm1 + 0.5*(sqr(rhouB)+sqr(rhovB)).dd(rhoB);
-  }
-
-  //...
-
-}
-
-
 //---------------------------------------------------------
 void Advec1D::SetIC()
 //---------------------------------------------------------
 {
   // compute initial condition (time=0)
-  (this->*InitialSolution)(x, y, 0.0, Q);
 }
 
 
@@ -155,38 +75,9 @@ void Advec1D::SetStepSize()
 void Advec1D::InitRun()
 //---------------------------------------------------------
 {
-  StartUp2D();      // construct grid and metric
-
-  //-------------------------------------
-  // Adjust faces on circular boundaries
-  //-------------------------------------
-  switch (sim_type) {
-
-  case eIsentropicVortex:
-    // no cylinder faces
-    straight.range(1,K); curved.resize(0);
-    break;
-
-  case eChannelFlow:
-    // no cylinder faces
-    straight.range(1,K); curved.resize(0);
-    break;
-
-  case eCouetteFlow:
-    // move inflow faces to r=4.0       
-    AdjustCylBC(4.0, 0.0, 0.0, BC_In);    // outer cylinder
-    // move outflow faces to r=1.0
-    AdjustCylBC(1.0, 0.0, 0.0, BC_Out);   // inner cylinder
-    break;
-  
-  default:
-    // set default maps for {straight,curved} elements
-    straight.range(1,K); curved.resize(0);
-    break;
-  }
+  StartUp1D();      // construct grid and metric
 
 
-  BuildBCMaps2D();  // map faces subject to boundary conditions
   Resize();         // allocate arrays
   SetIC();          // set initial conditions
   SetStepSize();    // compute initial timestep (using IC's)
@@ -197,7 +88,7 @@ void Advec1D::InitRun()
   //---------------------------------------------
   // base class version sets counters and flags
   //---------------------------------------------
-  NDG2D::InitRun();   
+  NDG1D::InitRun();
 
 
 //Nreport =   1;      // set frequency of reporting
@@ -226,7 +117,7 @@ void Advec1D::Summary()
 //---------------------------------------------------------
 {
   // TODO: add details of operators and sparse solvers
-  NDG2D::Summary();
+  NDG1D::Summary();
 }
 
 
@@ -280,12 +171,6 @@ void Advec1D::FinalReport()
 {
   // force report on final step
   this->Report(true);
-
-  // Report error and work info
-  if (HasAnalyticSol()) {
-    umLOG(1, "\n Max analytic error : %12.4e\n", this->GetAnalyticError());
-    umLOG(1,   "----------------------------------\n"); 
-  }
 
   umLOG(1, "\n  time for NDG work:  %0.2lf secs\n",  time_work);
   umLOG(1,   "           rhs work:  %0.2lf\n",       time_rhs);
