@@ -21,7 +21,7 @@ public:
   void reset();
   void clear();
 
-  int N, Nfp, Np K;
+  int N, Nfp, Np, K;
   double  NODETOL;
   int Nfaces;
   DVec    r, x, VX;

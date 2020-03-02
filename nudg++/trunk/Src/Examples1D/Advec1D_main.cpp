@@ -18,14 +18,9 @@ int main(int argc, char* argv[])
   umLOG(1, "  Nodal Discontinuous Galerkin  \n");
   umLOG(1, "     Method for non-linear      \n");
   umLOG(1, "          PDE systems           \n");
-  umLOG(1, "                                \n");
-  umLOG(1, "   o  version 3.0.0             \n");
-  umLOG(1, "   o  June 6, 2007              \n");
-  umLOG(1, "   o  Dr Tim Warburton          \n");
-  umLOG(1, "   o  tim.warburton@gmail.com   \n");
   umLOG(1, "--------------------------------\n\n");
 
-  NDG2D *p = new Advec1D; 
+  NDG1D *p = new Advec1D;
   
   if (p) 
     {

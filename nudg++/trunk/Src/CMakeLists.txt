@@ -11,6 +11,8 @@ find_library(BLAS libBlasLapack.a
 add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings)
 
 add_executable(Advect1D
+        Examples1D/Advec1D_main.cpp
+        Examples1D/Advec1D_Driver.cpp
         Codes1D/GradJacobiP.cpp
         Codes1D/JacobiGL.cpp
         Codes1D/JacobiGQ.cpp

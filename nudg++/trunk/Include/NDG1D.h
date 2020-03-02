@@ -20,10 +20,6 @@ public:
   virtual void Driver()=0;  // All simulators implement Driver()
 
   const char* GetClassName() const      { return class_name.c_str(); }
-  const char* GetMeshFileName() const   { return FileName.c_str(); }
-  bool Stationary() const { return m_bStationary; }
-  bool HasAnalyticSol() const { return m_bHasAnalyticSol; }
-
 
 protected:
   virtual void Run()=0;     // All simulators implement Run()
@@ -47,14 +43,6 @@ protected:
   void    GeometricFactors1D();
 
   void    dtscale1D(DVec& dtscale);
-
-  void    InterpMatrix1D(Cub1D& cub);
-  DMat&   InterpMatrix1D(const DVec&, const DVec&);
-
-  void PhysDmatrices1D(
-    const DVec& x1,     // [in]
-    const DMat& interp, // [in]
-          DMat& Dx);    // [out]
 
   //-------------------------------------
   // Filters
@@ -115,6 +103,8 @@ protected:
   static int    N1Dobjects;     // count of active simulators 
   static int    PlotNumber;     // accumulated plot count
   static double TotalSimTime;   // accumulate time for multiple runs
+
+  string  class_name;       // identify without RTTI
 };
 
 extern NDG1D* g_D1;        // global pointer
