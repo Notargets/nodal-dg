@@ -6,19 +6,22 @@
 #include "NDG1D.h"
 
 
-DVec& NDG1D::SimpleMesh1D(double xmin, double xmax, int K)
+void NDG1D::SimpleMesh1D(double xmin, double xmax, int K)
 {
-    DVec* vX = new DVec(K+1);
-    DVec& VX = (*vX);
-    VX.print();
+    VX.resize(K+1);
     for (int i = 0; i<K+1; i++) {
         double val = (xmax - xmin)*double(i)/double(K) +xmin;
-        printf("val[%d] = %g\n", i, val);
         VX[i] = val;
     };
     VX.print();
+    // Calculate face vertex locations
+    EToV.resize(K,2);
+    for (int i=0; i<K; i++) {
+        EToV[1][i+1] = i;
+        EToV[2][i+1] = i+1;
+    }
+    EToV.print();
     exit(1);
-    return VX;
 }
 
 //---------------------------------------------------------
@@ -33,7 +36,7 @@ bool NDG1D::StartUp1D()
   K = 10;
 
   // Generate 1D equi-spaced mesh with K+1 vertices
-  VX = SimpleMesh1D(0, 2., K);
+  SimpleMesh1D(0, 2., K);
 
   // Compute basic Legendre Gauss Lobatto Grid
   r = JacobiGL(0,0,N);

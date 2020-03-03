@@ -30,16 +30,16 @@ protected:
   virtual double GetAnalyticError();
 
 
-  // Setup routines
-  DVec& SimpleMesh1D(double xmin, double xmax, int K);
-  bool    StartUp1D();
-  DMat&   Lift1D();
-  void    Normals1D();
-  void    BuildMaps1D();
-  void    BuildBCMaps1D();
-  void    BuildPeriodicMaps1D(double xperiod, double yperiod);
+    // Setup routines
+    void  SimpleMesh1D(double xmin, double xmax, int K);
+    bool    StartUp1D();
+    DMat&   Lift1D();
+    void    Normals1D();
+    void    BuildMaps1D();
+    void    BuildBCMaps1D();
+    void    BuildPeriodicMaps1D(double xperiod, double yperiod);
 
-  void    Dmatrices1D();
+    void    Dmatrices1D();
 
   void    GeometricFactors1D();
 

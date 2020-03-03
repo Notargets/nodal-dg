@@ -30,7 +30,7 @@ public:
   DMat    V, invV, DVr;
   IVec    vmapB, mapB, vmapM, vmapP;
   IVec    vmapI, vmapO, mapI, mapO;
-  IMat    Fmask, EToE, EToF;
+  IMat    Fmask, EToE, EToF, EToV;
   DVec    rk4a, rk4b, rk4c;
  int     tstep, Nsteps;
  double  dt, time, FinalTime, RKtime, pi, eps;
