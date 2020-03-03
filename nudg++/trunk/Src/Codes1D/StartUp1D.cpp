@@ -6,6 +6,21 @@
 #include "NDG1D.h"
 
 
+DVec& NDG1D::SimpleMesh1D(double xmin, double xmax, int K)
+{
+    DVec* vX = new DVec(K+1);
+    DVec& VX = (*vX);
+    VX.print();
+    for (int i = 0; i<K+1; i++) {
+        double val = (xmax - xmin)*double(i)/double(K) +xmin;
+        printf("val[%d] = %g\n", i, val);
+        VX[i] = val;
+    };
+    VX.print();
+    exit(1);
+    return VX;
+}
+
 //---------------------------------------------------------
 bool NDG1D::StartUp1D()
 //---------------------------------------------------------
@@ -15,6 +30,10 @@ bool NDG1D::StartUp1D()
 
   // Definition of constants
   Nfp = 1; Np = N+1; Nfaces=2; NODETOL = 1e-12;
+  K = 10;
+
+  // Generate 1D equi-spaced mesh with K+1 vertices
+  VX = SimpleMesh1D(0, 2., K);
 
   // Compute basic Legendre Gauss Lobatto Grid
   r = JacobiGL(0,0,N);

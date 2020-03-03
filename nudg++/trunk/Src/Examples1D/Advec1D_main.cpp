@@ -21,12 +21,12 @@ int main(int argc, char* argv[])
   umLOG(1, "--------------------------------\n\n");
 
   NDG1D *p = new Advec1D;
-  
-  if (p) 
+
+  if (p)
     {
-      p->Driver();    // call driver
+        p->Driver();    // call driver
       delete p;       // delete simulator
-      
+
       umLOG(1, "\nSimulation complete.\n\n");
     } else { 
       umWARNING("NDGDriver", "No simulator created"); 

@@ -107,8 +107,6 @@ void NDG1D::Summary()
              "  Model type  = %s\n"
              "  Order (N)   = %d\n"
              "  Np          = %d\n"
-             "  K           = %d\n"
-             "  FileName    = %s\n"
              "  report freq = %d\n"
              "  render freq = %d\n"
              "  plot field  = %d\n"

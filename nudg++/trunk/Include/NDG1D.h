@@ -31,6 +31,7 @@ protected:
 
 
   // Setup routines
+  DVec& SimpleMesh1D(double xmin, double xmax, int K);
   bool    StartUp1D();
   DMat&   Lift1D();
   void    Normals1D();

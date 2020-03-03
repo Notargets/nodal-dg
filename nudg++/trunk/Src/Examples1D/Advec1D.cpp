@@ -47,27 +47,10 @@ void Advec1D::SetIC()
 void Advec1D::SetStepSize()
 //---------------------------------------------------------
 {
-  // function dt = Euler2Ddt(Q, gamma)
-  // compute time step for the compressible Euler equations
-  DVec rho,rhou,rhov,Ener, u,v,p,c,squv,Fscale_2,w_speeds, q1,q2,q3,q4;
-
-  // since "self-mapping" of arrays is illegal, 
-  // e.g. rho = rho(vmapM), use temp wrappers
-  q1.borrow(Np*K,Q.pCol(1));  q2.borrow(Np*K,Q.pCol(2));
-  q3.borrow(Np*K,Q.pCol(3));  q4.borrow(Np*K,Q.pCol(4));
-
-  rho=q1(vmapM); rhou=q2(vmapM); rhov=q3(vmapM); Ener=q4(vmapM);
-  u = rhou.dd(rho); v = rhov.dd(rho);  squv=sqr(u)+sqr(v);
-
-  p = gm1 * (Ener - rho.dm(squv)/2.0);
-  c = sqrt(abs(gamma*p.dd(rho)));
-
-  Fscale_2 = 0.5*Fscale;
-  w_speeds=SQ(N+1)*Fscale_2.dm(sqrt(squv)+c);
-  dt = 1.0/w_speeds.max_val();
-
-  Nsteps = (int)ceil(FinalTime/dt);
-  dt = FinalTime/(double)Nsteps;
+    FinalTime = 2;
+    dt = 0.001;
+    Nsteps = (int)ceil(FinalTime/dt);
+    dt = FinalTime/(double)Nsteps;
 }
 
 
@@ -76,8 +59,6 @@ void Advec1D::InitRun()
 //---------------------------------------------------------
 {
   StartUp1D();      // construct grid and metric
-
-
   Resize();         // allocate arrays
   SetIC();          // set initial conditions
   SetStepSize();    // compute initial timestep (using IC's)
@@ -89,7 +70,6 @@ void Advec1D::InitRun()
   // base class version sets counters and flags
   //---------------------------------------------
   NDG1D::InitRun();
-
 
 //Nreport =   1;      // set frequency of reporting
 //Nreport =   5;      // set frequency of reporting
