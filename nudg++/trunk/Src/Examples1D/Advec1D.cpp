@@ -50,11 +50,20 @@ void Advec1D::SetStepSize()
     dt = FinalTime/(double)Nsteps;
 }
 
+void Advec1D::Connect1D(DVec& EToV)
+{
+
+}
 
 //---------------------------------------------------------
 void Advec1D::InitRun()
 //---------------------------------------------------------
 {
+  K = 10;
+  FinalTime = 10;
+  // Generate 1D equi-spaced mesh with K+1 vertices
+  SimpleMesh1D(0, 2., K);
+
   StartUp1D();      // construct grid and metric
   Resize();         // allocate arrays
   SetIC();          // set initial conditions

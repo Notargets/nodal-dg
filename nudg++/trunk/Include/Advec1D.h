@@ -28,6 +28,7 @@ protected:
   virtual void FinalReport();
 
   void RHS(DMat& Qin);
+  void Connect1D(DVec& EToV);
 
 protected:
 
