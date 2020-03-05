@@ -19,7 +19,7 @@ DMat& GradVandermonde1D
   //		at (r) at order N
 
   // Initialize matrices
-  for (int i=0; i<=N; ++i) {
+  for (int i=0; i<N; i++) {
       DVr(All,i+1)= GradJacobiP(r, 0, 0, i);
   }
   return DVr;

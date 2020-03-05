@@ -11,10 +11,7 @@ Advec1D::Advec1D()
 //---------------------------------------------------------
 {
   class_name = "Advec1D";
-
   // set simulation parameters
-  gamma = 1.4;
-  gm1   = gamma - 1.0;
 }
 
 
