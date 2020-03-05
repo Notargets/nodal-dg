@@ -25,9 +25,9 @@ public:
   double  NODETOL;
   int Nfaces;
   DVec    r, x, VX;
-  DMat    Dr, LIFT, Drw, MassMatrix;
+  DMat    Dr, LIFT;
   DMat    Fx, nx, Fscale;
-  DMat    V, invV, DVr;
+  DMat    V, invV, Vr;
   IVec    vmapB, mapB, vmapM, vmapP;
   IVec    vmapI, vmapO, mapI, mapO;
   IMat    Fmask, EToE, EToF, EToV;

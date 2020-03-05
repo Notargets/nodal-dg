@@ -14,7 +14,7 @@ Globals1D::Globals1D()
   Np(0), Nfp(0), N(0), K(0), Nfaces(3), 
   NODETOL(1e-12),
   r("r"),
-  Dr("Dr"), LIFT("LIFT"), DVr("DVr"), MassMatrix("MassMatrix"),
+  Dr("Dr"), LIFT("LIFT"), Vr("Vr"),
   Fx("Fx"), nx("nx"), Fscale("Fscale"),
   vmapB("vmapB"), mapB("mapB"), Fmask("Fmask"),
    mapI( "mapI"),  mapO( "mapO"),

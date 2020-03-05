@@ -42,13 +42,10 @@ bool NDG1D::StartUp1D()
   r = JacobiGL(0,0,N);
 
   // Build reference element matrices
-  V = Vandermonde1D(N,r); invV = inv(V);
-  DVr = GradVandermonde1D(N, r);
-  Dr = DVr/V;
-
-  MassMatrix = trans(invV)*invV;
-
-  MassMatrix.print();
+  V = Vandermonde1D(N,r);
+  invV = inv(V);
+  Vr = GradVandermonde1D(N, r);
+  Dr = Vr/V;
 
   /*
   // Create surface integral terms
