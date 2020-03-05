@@ -11,17 +11,16 @@ void NDG1D::SimpleMesh1D(double xmin, double xmax, int K)
     VX.resize(K+1);
     for (int i = 0; i<K+1; i++) {
         double val = (xmax - xmin)*double(i)/double(K) +xmin;
-        VX[i] = val;
+        VX(i+1) = val;
     };
     VX.print();
     // Calculate face vertex locations
-    EToV.resize(K,2);
+    EToV.resize(2, K);
     for (int i=0; i<K; i++) {
-        EToV[1][i+1] = i;
-        EToV[2][i+1] = i+1;
+        EToV(1, i+1) = i;
+        EToV(2, i+1) = i+1;
     }
     EToV.print();
-    exit(1);
 }
 
 //---------------------------------------------------------
@@ -34,6 +33,7 @@ bool NDG1D::StartUp1D()
   // Definition of constants
   Nfp = 1; Np = N+1; Nfaces=2; NODETOL = 1e-12;
   K = 10;
+  FinalTime = 10;
 
   // Generate 1D equi-spaced mesh with K+1 vertices
   SimpleMesh1D(0, 2., K);
@@ -47,6 +47,8 @@ bool NDG1D::StartUp1D()
   Dr = DVr/V;
 
   MassMatrix = trans(invV)*invV;
+
+  MassMatrix.print();
 
   /*
   // Create surface integral terms

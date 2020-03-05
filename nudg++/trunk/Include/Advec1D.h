@@ -52,16 +52,8 @@ protected:
   // member data
   //-------------------------------------
 
-  double gamma, gm1;
-  DMat Q, Q1, Q2, Qbc, rhsQ, resQ;
-  DMat QM, QP, flux; // nflux, 
-  DMat cQ, cF, cG, gQ, gQM, gQP;
+  DMat Q, rhsQ, resQ;
   DVec resid;
-
-  // store pre-calculated constant boundary data
-  IVec gmapB;       // concatenated boundary maps
-  DVec gxB, gyB;    // {x,y} coords of boundary nodes
-  DVec rhoB,rhouB,rhovB,EnerB;
 };
 
 #endif  // NDG__Advec1D_H__INCLUDED
