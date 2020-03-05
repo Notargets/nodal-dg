@@ -16,6 +16,9 @@ add_executable(Advect1D
         Examples1D/Advec1D_Driver.cpp
         Examples1D/Advec1D_Run.cpp
         Codes1D/GradVandermonde1D.cpp
+        Codes1D/Lift1D.cpp
+        Codes1D/Normals1D.cpp
+        Codes1D/GeometricFactors1D.cpp
         Codes1D/StartUp1D.cpp
         Codes1D/NDG1D.cpp
         Codes1D/GradJacobiP.cpp

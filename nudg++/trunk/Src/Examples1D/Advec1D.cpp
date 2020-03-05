@@ -44,15 +44,13 @@ void Advec1D::SetIC()
 void Advec1D::SetStepSize()
 //---------------------------------------------------------
 {
-    FinalTime = 2;
-    dt = 0.001;
     Nsteps = (int)ceil(FinalTime/dt);
     dt = FinalTime/(double)Nsteps;
 }
 
 void Advec1D::Connect1D(DVec& EToV)
 {
-
+    int TotalFaces = Nfaces * K, Nv = K+1;
 }
 
 //---------------------------------------------------------
@@ -61,10 +59,20 @@ void Advec1D::InitRun()
 {
   K = 10;
   FinalTime = 10;
+  dt = 0.001;
   // Generate 1D equi-spaced mesh with K+1 vertices
-  SimpleMesh1D(0, 2., K);
-
   StartUp1D();      // construct grid and metric
+  LIFT = Lift1D(); // Compute surface lift terms
+  LIFT.print();
+  Normals1D();
+
+  SimpleMesh1D(0, 2., K);
+    /*
+    IVec va = EToV(All, 1);
+    IVec vb = EToV(All, 2);
+    x = ones(Np, 1)*VX(va) + 0.5*(r+1)*(VX(vb)-VX(va));
+     */
+
   Resize();         // allocate arrays
   SetIC();          // set initial conditions
   SetStepSize();    // compute initial timestep (using IC's)
