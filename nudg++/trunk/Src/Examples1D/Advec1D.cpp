@@ -61,17 +61,9 @@ void Advec1D::InitRun()
   FinalTime = 10;
   dt = 0.001;
   // Generate 1D equi-spaced mesh with K+1 vertices
-  StartUp1D();      // construct grid and metric
-  LIFT = Lift1D(); // Compute surface lift terms
-  LIFT.print();
-  Normals1D();
-
   SimpleMesh1D(0, 2., K);
-    /*
-    IVec va = EToV(All, 1);
-    IVec vb = EToV(All, 2);
-    x = ones(Np, 1)*VX(va) + 0.5*(r+1)*(VX(vb)-VX(va));
-     */
+
+  StartUp1D();      // construct grid and metric
 
   Resize();         // allocate arrays
   SetIC();          // set initial conditions
