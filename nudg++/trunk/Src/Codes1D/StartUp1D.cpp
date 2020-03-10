@@ -13,14 +13,12 @@ void NDG1D::SimpleMesh1D(double xmin, double xmax, int K)
         double val = (xmax - xmin)*double(i)/double(K) +xmin;
         VX(i+1) = val;
     };
-    VX.print();
     // Calculate face vertex locations
     EToV.resize(K, 2);
     for (int i=1; i<=K; i++) {
         EToV(i, 1) = i;
         EToV(i, 2) = i+1;
     }
-    EToV.print();
 }
 
 //---------------------------------------------------------
@@ -43,16 +41,15 @@ bool NDG1D::StartUp1D()
     Dr = Vr/V;
 
     LIFT = Lift1D(); // Compute surface lift terms
-    LIFT.print();
     Normals1D();
+
     IVec va = EToV(All, 1);
     IVec vb = EToV(All, 2);
-    IVec* pvc = new IVec(K);
-    IVec& vc = (*pvc);
-    for (int i=1; i<=K; i++) {
-        vc(i) = i;
-    };
+    IVec vc = IVec(K);
+    vc.range(1,K);
     x = ones(Np)*VX(va) + 0.5*(r+1.)*((VX(vb)-VX(va))(vc));
+
+    GeometricFactors1D();
 }
 /*
 % Compute basic Legendre Gauss Lobatto grid

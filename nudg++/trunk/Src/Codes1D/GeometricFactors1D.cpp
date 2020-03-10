@@ -8,5 +8,8 @@
 void NDG1D::GeometricFactors1D()
 //---------------------------------------------------------
 {
-  // Calculate geometric factors
+    // Calculate geometric factors
+    DVec xr = Dr*x;
+    J = xr;
+    rx = 1./J;
 }
