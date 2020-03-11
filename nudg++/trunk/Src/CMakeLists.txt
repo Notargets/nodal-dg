@@ -15,6 +15,7 @@ add_executable(Advect1D
         Examples1D/Advec1D_main.cpp
         Examples1D/Advec1D_Driver.cpp
         Examples1D/Advec1D_Run.cpp
+        Codes1D/BuildMaps1D.cpp
         Codes1D/Connect1D.cpp
         Codes1D/GradVandermonde1D.cpp
         Codes1D/Lift1D.cpp

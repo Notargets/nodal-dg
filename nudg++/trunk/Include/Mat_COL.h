@@ -862,7 +862,7 @@ bool Mat_COL<T>::reshape(int newM, int newN, bool bInit, T x)
     return false;               // no change
   }
   if (newM*newN != m_M*m_N) {
-    extend(newM*newN,bInit,x);  // expand or contract
+    this->extend(newM*newN,bInit,x);  // expand or contract
   }
   set_pointers(newM, newN);     // adjust logical indexing
   return true;                  // shape has changed
