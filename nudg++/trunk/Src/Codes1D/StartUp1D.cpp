@@ -50,6 +50,17 @@ bool NDG1D::StartUp1D()
     x = ones(Np)*VX(va) + 0.5*(r+1.)*((VX(vb)-VX(va))(vc));
 
     GeometricFactors1D();
+
+    IVec fmask1 = find(abs(r+1.), '<', NODETOL);
+    IVec fmask2 = find(abs(r-1.), '<', NODETOL);
+    Fmask.reshape(1, 2);
+    Fmask = concat(fmask1, fmask2);
+    Fx = x(Fmask, All);
+
+    Normals1D();
+
+    DMat JJ = J(Fmask, All);
+    Fscale = 1./JJ;
 }
 /*
 % Compute basic Legendre Gauss Lobatto grid
