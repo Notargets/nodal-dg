@@ -1,5 +1,5 @@
-// Connect2D.m
-// function [EToE, EToF] = Connect2D(EToV)
+// Connect1D.m
+// function [EToE, EToF] = Connect1D(EToV)
 // 2007/06/06
 //---------------------------------------------------------
 #include "NDGLib_headers.h"
@@ -10,7 +10,7 @@
 // stopwatch timer2;
 
 //---------------------------------------------------------
-void Connect2D
+void Connect1D
 (
   const IMat& EToV,
         IMat& EToE, 
@@ -18,11 +18,11 @@ void Connect2D
 )
 //---------------------------------------------------------
 {
-  // function [EToE, EToF] = Connect2D(EToV)
+  // function [EToE, EToF] = Connect1D(EToV)
   // Purpose  : Build global connectivity arrays for grid based on
   //            standard EToV input array from grid generator
 
-  int Nfaces = 3;
+  int Nfaces = 2;
 
   // Find number of elements and vertices
   int K = EToV.num_rows(), Nv = EToV.max_val();
@@ -31,7 +31,7 @@ void Connect2D
   int TotalFaces = Nfaces*K;
 
   // List of local face to local vertex connections
-  IMat vn(gRowData, 3,2, "1 2  2 3  1 3");
+  IMat vn(gRowData, 2,1, "1 2");
 
   // Build global face to node sparse array
   CSi SpFToV(TotalFaces, Nv, 2*TotalFaces, 1, 1);
@@ -44,7 +44,6 @@ void Connect2D
     for (int face=1; face<=Nfaces; ++face) 
     {
       SpFToV.set1(sk, EToV(k, vn(face,1)), 1);
-      SpFToV.set1(sk, EToV(k, vn(face,2)), 1);
       ++sk;
     }
   }
@@ -67,7 +66,7 @@ void Connect2D
 
 
   // Find complete face to face connections
-  IMat F12 = SpFToF.find2D('=', 2);
+  IMat F12 = SpFToF.find2D('=', 1);
   IVec faces1=F12(All,1), faces2=F12(All,2);
 
 #if (0)
@@ -92,8 +91,8 @@ void Connect2D
   EToF(ind) = face2;
 
 #if (0)
-  dumpIMat(EToE, "EToE Connect2D");
-  dumpIMat(EToF, "EToF Connect2D");
+  dumpIMat(EToE, "EToE Connect1D");
+  dumpIMat(EToF, "EToF Connect1D");
   umERROR("Testing", "Nigel, check arrays");
 #endif
 }

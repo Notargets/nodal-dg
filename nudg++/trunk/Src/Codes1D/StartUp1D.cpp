@@ -61,6 +61,11 @@ bool NDG1D::StartUp1D()
 
     DMat JJ = J(Fmask, All);
     Fscale = 1./JJ;
+
+    Connect1D(EToV, EToE, EToF);
+
+    EToE.print();
+    EToF.print();
 }
 /*
 % Compute basic Legendre Gauss Lobatto grid

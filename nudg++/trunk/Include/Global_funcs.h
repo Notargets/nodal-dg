@@ -125,6 +125,7 @@ void    Dmatrices2D(int N, const DVec& r, const DVec& s, const DMat& V, DMat& Dr
 void    rstoab(const DVec& r, const DVec& s, DVec& a, DVec& b);
 void    GradSimplex2DP(const DVec& a, const DVec& b, int id, int jd, DVec& dmodedr, DVec& dmodeds);
 DVec&   Warpfactor(int N, const DVec& rout);
+void    Connect1D(const IMat& EToV, IMat& EToE, IMat& EToF);
 void    Connect2D(const IMat& EToV, IMat& EToE, IMat& EToF);
 
 void    Cubature2D(int Corder, Cub2D& cub);
