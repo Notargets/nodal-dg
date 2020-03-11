@@ -64,13 +64,7 @@ bool NDG1D::StartUp1D()
 
     Connect1D(EToV, EToE, EToF);
 
-    umLOG("LAL 0");
-    EToE.print();
-    EToF.print();
-
-    umLOG("LAL 1");
     BuildMaps1D();
-    umLOG("LAL 2");
 }
 /*
 % Compute basic Legendre Gauss Lobatto grid
