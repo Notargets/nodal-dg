@@ -70,4 +70,7 @@ void NDG1D::BuildMaps1D()
 
     // Create list of boundary nodes
     mapB = find(vmapP, '=', vmapM);  vmapB = vmapM(mapB);
+
+    // Inflow and outflow boundaries, single element vectors for this case
+    mapI = 1; mapO = K*Nfaces; vmapI = 1; vmapO = K*Np;
 }
