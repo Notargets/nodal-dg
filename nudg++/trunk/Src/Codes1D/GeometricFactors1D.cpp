@@ -9,7 +9,7 @@ void NDG1D::GeometricFactors1D()
 //---------------------------------------------------------
 {
     // Calculate geometric factors
-    DVec xr = Dr*x;
+    DMat xr = Dr*x;
     J = xr;
     rx = 1./J;
 }

@@ -27,7 +27,7 @@ protected:
   virtual void Report(bool bForce=false);
   virtual void FinalReport();
 
-  void RHS(DMat& Qin);
+  DMat& RHS(DMat& u, double time, double a);
   void Connect1D(DVec& EToV);
 
 protected:
@@ -36,7 +36,7 @@ protected:
   // member data
   //-------------------------------------
 
-  DMat Q, rhsQ, resQ;
+  DMat u, rhsu;
   DVec resid;
 };
 

@@ -11,9 +11,37 @@ void Advec1D::Run()
 //---------------------------------------------------------
 {
   // function Q = Advec1D(Q, FinalTime, ExactSolution, ExactSolutionBC, fluxtype)
-  // Purpose  : Integrate 2D Euler equations using a 4th order low storage RK
+    // Purpose  : Integrate 2D Euler equations using a 4th order low storage RK
+    // compute time step size
+    double xmin, CFL;
+    // advection speed
+    double a = 2*pi;
+    double timelocal;
 
-  InitRun();
+    InitRun();
+    time = 0;
+
+    // Runge-Kutta residual storage
+    resid = zeros(Np,K);
+
+    xmin = (abs(x(1,All)-x(2,All))).min_val();
+    CFL=0.75; dt   = CFL/(2*pi)*xmin; dt = .5*dt;
+    Nsteps = ceil(FinalTime/dt); dt = FinalTime/Nsteps;
+    umLOG(1, "xmin = %g\n", xmin);
+
+    // outer time step loop
+    Nsteps = 10;
+    for (int tstep=1; tstep<=Nsteps; tstep++) {
+        for (int INTRK=1; INTRK<=5; INTRK++) {
+            timelocal = time + rk4c(INTRK) * dt;
+            rhsu = this->RHS(u, timelocal, a);
+            resid = rk4a(INTRK) * resid + dt * rhsu;
+            u = u + rk4b(INTRK) * resid;
+        }
+        time = time+dt;
+        umLOG(1, "max_resid[%d] = %g\n", tstep, resid.max_val());
+    }
+    // Increment time
 /*
   ti0=timer.read();       // time simulation loop
 

@@ -27,9 +27,8 @@ void Advec1D::Resize()
 //---------------------------------------------------------
 {
   // Allocate member arrays
-  Q.resize   (Np*K,  4);    // solution fields
-  rhsQ.resize(Np*K,  4);    // Runge-Kutta stage values
-  resQ.resize(Np*K,  4);    // Runge-Kutta residual 
+  u.resize   (Np, K); // solution fields
+  rhsu.resize(Np, K); // Runge-Kutta stage values
 }
 
 //---------------------------------------------------------
@@ -37,6 +36,7 @@ void Advec1D::SetIC()
 //---------------------------------------------------------
 {
   // compute initial condition (time=0)
+  u = sin(x);
 }
 
 
@@ -62,15 +62,10 @@ void Advec1D::InitRun()
   dt = 0.001;
   // Generate 1D equi-spaced mesh with K+1 vertices
   SimpleMesh1D(0, 2., K);
-
   StartUp1D();      // construct grid and metric
-
   Resize();         // allocate arrays
   SetIC();          // set initial conditions
   SetStepSize();    // compute initial timestep (using IC's)
-
-  // storage for residual at each time-step
-  resid.resize(Nsteps+1);
 
   //---------------------------------------------
   // base class version sets counters and flags
@@ -119,11 +114,10 @@ void Advec1D::Report(bool bForce)
 
   if (!umMOD(tstep,Nreport) || bForce || (1==tstep)) 
   {
-    double r_min=Q.min_col_val(1), r_max=Q.max_col_val(1);
-    double e_min=Q.min_col_val(4), e_max=Q.max_col_val(4);
+    double r_min=u.min_col_val(1), r_max=u.max_col_val(1);
 
     umLOG(1, "%5d  %6.3lf   %8.5lf %8.5lf   %8.5lf %8.5lf   %8.6lf\n", 
-              tstep, time, r_min, r_max, e_min, e_max, dt);
+              tstep, time, r_min, r_max, dt);
   }
 
   if (!umMOD(tstep,Nrender) || bForce)
