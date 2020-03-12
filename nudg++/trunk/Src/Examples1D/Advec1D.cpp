@@ -44,13 +44,7 @@ void Advec1D::SetIC()
 void Advec1D::SetStepSize()
 //---------------------------------------------------------
 {
-    Nsteps = (int)ceil(FinalTime/dt);
-    dt = FinalTime/(double)Nsteps;
-}
-
-void Advec1D::Connect1D(DVec& EToV)
-{
-    int TotalFaces = Nfaces * K, Nv = K+1;
+    // Set the current time step
 }
 
 //---------------------------------------------------------
@@ -59,7 +53,6 @@ void Advec1D::InitRun()
 {
   K = 10;
   FinalTime = 10;
-  dt = 0.001;
   // Generate 1D equi-spaced mesh with K+1 vertices
   SimpleMesh1D(0, 2., K);
   StartUp1D();      // construct grid and metric

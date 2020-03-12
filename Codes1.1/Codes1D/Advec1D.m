@@ -18,7 +18,8 @@ Nsteps = ceil(FinalTime/dt); dt = FinalTime/Nsteps;
 % advection speed
 a = 2*pi;
 
-% outer time step loop 
+% outer time step loop
+Nsteps = 300;
 for tstep=1:Nsteps
     for INTRK = 1:5
         timelocal = time + rk4c(INTRK)*dt;
@@ -26,6 +27,7 @@ for tstep=1:Nsteps
         resu = rk4a(INTRK)*resu + dt*rhsu;
         u = u+rk4b(INTRK)*resu;
     end;
+    disp(max(resu, [], 'all'));
     % Increment time
     time = time+dt;
 end;

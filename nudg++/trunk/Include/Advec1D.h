@@ -28,7 +28,6 @@ protected:
   virtual void FinalReport();
 
   DMat& RHS(DMat& u, double time, double a);
-  void Connect1D(DVec& EToV);
 
 protected:
 
@@ -37,7 +36,7 @@ protected:
   //-------------------------------------
 
   DMat u, rhsu;
-  DVec resid;
+  DMat resid;
 };
 
 #endif  // NDG__Advec1D_H__INCLUDED

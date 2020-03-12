@@ -27,10 +27,8 @@ void Advec1D::Run()
     xmin = (abs(x(1,All)-x(2,All))).min_val();
     CFL=0.75; dt   = CFL/(2*pi)*xmin; dt = .5*dt;
     Nsteps = ceil(FinalTime/dt); dt = FinalTime/Nsteps;
-    umLOG(1, "xmin = %g\n", xmin);
 
     // outer time step loop
-    Nsteps = 10;
     for (int tstep=1; tstep<=Nsteps; tstep++) {
         for (int INTRK=1; INTRK<=5; INTRK++) {
             timelocal = time + rk4c(INTRK) * dt;
