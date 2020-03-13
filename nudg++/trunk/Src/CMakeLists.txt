@@ -8,8 +8,9 @@ include_directories(../Include)
 find_library(BLAS libBlasLapack.a
         PATHS /home/llonergan/src/github.com/notargets/nodal-dg/nudg++/trunk/Lib)
 
-#add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings)
-add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings -fsanitize=address -fsanitize=undefined -fsanitize=leak -fsanitize=bounds)
+add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings)
+#add_definitions(-O3 -DUNDERSCORE -fpermissive -Wno-write-strings)
+#add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings -fsanitize=address -fsanitize=undefined -fsanitize=leak -fsanitize=bounds)
 #add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings -fsanitize=bounds)
 
 add_executable(Advect1D

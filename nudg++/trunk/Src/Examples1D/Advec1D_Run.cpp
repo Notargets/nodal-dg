@@ -39,14 +39,6 @@ void Advec1D::Run()
         //umLOG(1, "max_resid[%d] = %g, time = %g, dt = %g\n", tstep, resid.max_val(), time, dt);
         this->Report(false);
     }
-    u.print();
-    /*
-    EToV.print();
-    EToE.print();
-    EToF.print();
-    Fmask.print();
-    V.print();
-    Dr.print();
-    LIFT.print();
-     */
+    Summary();
+    u.print(stdout, "Solution U");
 }
