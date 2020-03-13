@@ -6,11 +6,9 @@
 
 
 //---------------------------------------------------------
-DMat& Advec1D::RHS(DMat& u, double time, double a)
+void Advec1D::RHS(DMat& u, double time, double a)
 //---------------------------------------------------------
 {
-    DMat* prhsu = new DMat(Np, K);
-    DMat& rhsu = (*prhsu);
     double alpha = 1.;
     double uin;
     DMat du = zeros(Nfp*Nfaces, K);
@@ -25,6 +23,4 @@ DMat& Advec1D::RHS(DMat& u, double time, double a)
     du(mapO) = 0.;
 
     rhsu = -a*rx.dm(Dr*u) + LIFT*(Fscale.dm(du));
-
-    return rhsu;
 }

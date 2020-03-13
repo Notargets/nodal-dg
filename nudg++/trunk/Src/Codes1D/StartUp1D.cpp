@@ -34,7 +34,6 @@ bool NDG1D::StartUp1D()
 
     // Build reference element matrices
     V = Vandermonde1D(N,r);
-    invV = inv(V);
     Vr = GradVandermonde1D(N, r);
     Dr = Vr/V;
 
@@ -63,4 +62,6 @@ bool NDG1D::StartUp1D()
     Connect1D(EToV, EToE, EToF);
 
     BuildMaps1D();
+
+    return true;
 }

@@ -17,13 +17,12 @@ Globals1D::Globals1D()
   Dr("Dr"), LIFT("LIFT"), Vr("Vr"),
   Fx("Fx"), nx("nx"), Fscale("Fscale"),
   vmapB("vmapB"), mapB("mapB"), Fmask("Fmask"),
-   mapI( "mapI"),  mapO( "mapO"),
+  mapI( "mapI"),  mapO( "mapO"),
   vmapI("vmapI"), vmapO("vmapO"),
   rk4a("rk4a"), rk4b("rk4b"), rk4c("rk4c"),
   EToE("EToE"), EToF("EToF"),
-  V("V"), invV("invV"),
+  V("V"),
   VX("VX"), x("x"),
-
   tstep(0), Nsteps(0),
   dt(0.001), time(0.0), FinalTime(0.0), RKtime(0.0), 
   pi(M_PI), eps(2.2204e-16)  // NBN: Matlab @ AMD64

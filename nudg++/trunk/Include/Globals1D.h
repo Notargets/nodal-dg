@@ -27,7 +27,7 @@ public:
   DVec    r, VX;
   DMat    Dr, LIFT;
   DMat    Fx, nx, Fscale;
-  DMat    V, invV, Vr;
+  DMat    V, Vr;
   DMat    J, rx, x;
   IVec    vmapB, mapB, vmapM, vmapP;
   IVec    vmapI, vmapO, mapI, mapO;

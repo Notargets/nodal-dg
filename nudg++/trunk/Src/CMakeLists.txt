@@ -8,7 +8,9 @@ include_directories(../Include)
 find_library(BLAS libBlasLapack.a
         PATHS /home/llonergan/src/github.com/notargets/nodal-dg/nudg++/trunk/Lib)
 
-add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings)
+#add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings)
+add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings -fsanitize=address -fsanitize=undefined -fsanitize=leak -fsanitize=bounds)
+#add_definitions(-DUNDERSCORE -fpermissive -Wno-write-strings -fsanitize=bounds)
 
 add_executable(Advect1D
         Examples1D/Advec1D.cpp
@@ -36,7 +38,8 @@ add_executable(Advect1D
         Arrays/Mat_COL.cpp
         Arrays/ArrayMacros.cpp)
 
-target_link_libraries(Advect1D ${BLAS} gfortran quadmath)
+target_link_libraries(Advect1D ${BLAS} gfortran quadmath -fsanitize=address -fsanitize=undefined -fsanitize=leak -fsanitize=bounds)
+#target_link_libraries(Advect1D ${BLAS} gfortran quadmath -fsanitize=bounds)
 
 add_executable(Euler2D
         Arrays/ArrayMacros.cpp

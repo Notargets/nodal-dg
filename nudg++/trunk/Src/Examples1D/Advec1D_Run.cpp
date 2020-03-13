@@ -18,8 +18,11 @@ void Advec1D::Run()
 
     // compute time step size
     xmin = (abs(x(1,All)-x(2,All))).min_val();
-    CFL=0.75; dt   = CFL/(2*pi)*xmin; dt = .5*dt;
-    Nsteps = ceil(FinalTime/dt); dt = FinalTime/Nsteps;
+    CFL=0.75;
+    dt   = .5 * (CFL/(2*pi)*xmin);
+    umLOG(1, "dt = %g\n", dt);
+    Nsteps = ceil(FinalTime/dt);
+    //dt = FinalTime/Nsteps;
 
     // outer time step loop
     resid = zeros(Np,K); // Runge-Kutta residual storage
@@ -28,12 +31,13 @@ void Advec1D::Run()
     for (int tstep=1; tstep<=Nsteps; tstep++) {
         for (int INTRK=1; INTRK<=5; INTRK++) {
             timelocal = time + rk4c(INTRK) * dt;
-            rhsu = this->RHS(u, timelocal, a);
+            this->RHS(u, timelocal, a);
             resid = rk4a(INTRK) * resid + dt * rhsu;
             u += rk4b(INTRK) * resid;
         }
         time = time+dt;
-        umLOG(1, "max_resid[%d] = %g, time = %g\n", tstep, resid.max_val(), time);
+        umLOG(1, "max_resid[%d] = %g, time = %g, dt = %g\n", tstep, resid.max_val(), time, dt);
+        //this->Report(true);
     }
     resid.print();
     u.print();
