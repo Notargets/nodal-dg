@@ -28,7 +28,7 @@ void Advec1D::Run()
     // outer time step loop
     resid = zeros(Np,K); // Runge-Kutta residual storage
     time = 0;
-    for (int tstep=1; tstep<=Nsteps; tstep++) {
+    for (tstep=1; tstep<=Nsteps; tstep++) {
         for (int INTRK=1; INTRK<=5; INTRK++) {
             timelocal = time + rk4c(INTRK) * dt;
             this->RHS(u, timelocal, a);
@@ -37,9 +37,8 @@ void Advec1D::Run()
         }
         time = time+dt;
         //umLOG(1, "max_resid[%d] = %g, time = %g, dt = %g\n", tstep, resid.max_val(), time, dt);
-        this->Report(true);
+        this->Report(false);
     }
-    resid.print();
     u.print();
     /*
     EToV.print();
