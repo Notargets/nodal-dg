@@ -18,7 +18,6 @@ Nsteps = ceil(FinalTime/dt); dt = FinalTime/Nsteps;
 % advection speed
 a = 2*pi;
 
-Nsteps = 1;
 % outer time step loop
 for tstep=1:Nsteps
     for INTRK = 1:5

@@ -19,7 +19,7 @@ void GradVandermonde1D
 
   Vr.resize(r.size(), N+1);
   // Initialize matrices
-  for (int i=0; i<N; i++) {
+  for (int i=0; i<=N; i++) {
       Vr(All,i+1)= GradJacobiP(r, 0, 0, i);
   }
 }

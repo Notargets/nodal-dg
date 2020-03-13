@@ -72,5 +72,8 @@ void NDG1D::BuildMaps1D()
     mapB = find(vmapP, '=', vmapM);  vmapB = vmapM(mapB);
 
     // Inflow and outflow boundaries, single element vectors for this case
-    mapI = 1; mapO = K*Nfaces; vmapI = 1; vmapO = K*Np;
+    mapI.resize(1); mapO.resize(1);
+    mapI(1) = 1; mapO(1) = K*Nfaces;
+    vmapI.resize(1); vmapO.resize(1);
+    vmapI(1) = 1; vmapO(1) = K*Np;
 }
