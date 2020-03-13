@@ -24,6 +24,7 @@ public:
   int N, Nfp, Np, K;
   double  NODETOL;
   int Nfaces;
+  double  dt, time, FinalTime, RKtime, pi, eps;
   DVec    r, VX;
   DMat    Dr, LIFT;
   DMat    Fx, nx, Fscale;
@@ -34,7 +35,6 @@ public:
   IMat    Fmask, EToE, EToF, EToV;
   DVec    rk4a, rk4b, rk4c;
  int     tstep, Nsteps;
- double  dt, time, FinalTime, RKtime, pi, eps;
 /*
 global N Nfp Np K
 global Nfaces EToE EToF

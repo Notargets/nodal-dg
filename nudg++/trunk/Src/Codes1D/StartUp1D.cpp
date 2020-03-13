@@ -34,7 +34,7 @@ bool NDG1D::StartUp1D()
 
     // Build reference element matrices
     V = Vandermonde1D(N,r);
-    Vr = GradVandermonde1D(N, r);
+    GradVandermonde1D(N, r, Vr);
     Dr = Vr/V;
 
     LIFT = Lift1D(); // Compute surface lift terms
@@ -42,9 +42,10 @@ bool NDG1D::StartUp1D()
 
     IVec va = EToV(All, 1);
     IVec vb = EToV(All, 2);
-    IVec vc = IVec(K);
+    IVec vc;
     vc.range(1,K);
-    x = ones(Np)*VX(va) + 0.5*(r+1.)*((VX(vb)-VX(va))(vc));
+    DVec sT = VX(vb) - VX(va); // Allows for GC
+    x = ones(Np)*(VX(va)) + 0.5*(r+1.)*(sT(vc));
 
     GeometricFactors1D();
 

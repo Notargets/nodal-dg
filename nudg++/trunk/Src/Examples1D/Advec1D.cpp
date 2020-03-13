@@ -101,7 +101,7 @@ void Advec1D::Report(bool bForce)
 {
   if (1 == tstep) {
     // print header
-    umLOG(1, "\n step   time    rho(min) rho(max)   En(min)  En(max)       dt   \n"
+    umLOG(1, "\n step   time     u(min)   u(max)    dt   \n"
                "----------------------------------------------------------------\n");
   }
 
@@ -109,7 +109,7 @@ void Advec1D::Report(bool bForce)
   {
     double r_min=u.min_col_val(1), r_max=u.max_col_val(1);
 
-    umLOG(1, "%5d  %6.3lf   %8.5lf %8.5lf   %8.5lf %8.5lf   %8.6lf\n", 
+    umLOG(1, "%5d  %6.3lf   %8.5lf %8.5lf   %8.6lf\n",
               tstep, time, r_min, r_max, dt);
   }
 

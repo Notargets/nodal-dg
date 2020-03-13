@@ -22,12 +22,12 @@ void Advec1D::Run()
     dt   = .5 * (CFL/(2*pi)*xmin);
     umLOG(1, "dt = %g\n", dt);
     Nsteps = ceil(FinalTime/dt);
-    //dt = FinalTime/Nsteps;
+    dt = FinalTime/Nsteps;
 
     // outer time step loop
     resid = zeros(Np,K); // Runge-Kutta residual storage
     time = 0;
-    Nsteps = 300;
+    Nsteps = 1;
     for (int tstep=1; tstep<=Nsteps; tstep++) {
         for (int INTRK=1; INTRK<=5; INTRK++) {
             timelocal = time + rk4c(INTRK) * dt;
@@ -37,7 +37,7 @@ void Advec1D::Run()
         }
         time = time+dt;
         umLOG(1, "max_resid[%d] = %g, time = %g, dt = %g\n", tstep, resid.max_val(), time, dt);
-        //this->Report(true);
+        this->Report(true);
     }
     resid.print();
     u.print();

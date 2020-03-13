@@ -27,7 +27,7 @@ protected:
   virtual void Report(bool bForce=false);
   virtual void FinalReport();
 
-  void RHS(DMat& u, double time, double a);
+  virtual void RHS(DMat& u, double time, double a);
 
 protected:
 
