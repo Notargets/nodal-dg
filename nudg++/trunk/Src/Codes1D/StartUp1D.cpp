@@ -38,7 +38,6 @@ bool NDG1D::StartUp1D()
     Dr = Vr/V;
 
     LIFT = Lift1D(); // Compute surface lift terms
-    Normals1D();
 
     IVec va = EToV(All, 1);
     IVec vb = EToV(All, 2);
