@@ -9,5 +9,4 @@ DVr = zeros(length(r),(N+1));
 for i=0:N
    [DVr(:,i+1)] = GradJacobiP(r(:),0,0,i);
 end
-disp(DVr);
 return
