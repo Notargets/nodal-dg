@@ -7,7 +7,7 @@ function [rho,rhou,Ener] = Euler1D(rho, rhou, Ener, FinalTime)
 Globals1D;
 
 % Parameters
-gamma = 1.4; CFL = 1.0; time = 0;
+gamma = 1.4; CFL = 0.25; time = 0;
 
 % Prepare for adaptive time stepping
 mindx = min(x(2,:)-x(1,:));
@@ -15,6 +15,10 @@ mindx = min(x(2,:)-x(1,:));
 % Limit initial solution
 rho =SlopeLimitN(rho); rhou=SlopeLimitN(rhou); Ener=SlopeLimitN(Ener);
 
+fprintf("CFL = %8.4f, K = %d, N = %d\n", CFL, K, N);
+drawnow('update');
+
+step = 0;
 % outer time step loop 
 while(time<FinalTime)
   
@@ -55,6 +59,11 @@ while(time<FinalTime)
   % Limit solution
   rho =SlopeLimitN(rho); rhou=SlopeLimitN(rhou); Ener=SlopeLimitN(Ener);
   
+  step = step + 1;
+  if isequal(mod(step,50), 0)
+      fprintf("Time = %8.4f, max_resid[%d] = %8.4f, emin = %8.6f, emax = %8.6f\n",time, step, max(rhsEner,[],'all'), min(Ener,[],'all'), max(Ener,[],'all'));
+      drawnow('update');
+   end
   % Increment time and adapt timestep
   time = time+dt;
 end

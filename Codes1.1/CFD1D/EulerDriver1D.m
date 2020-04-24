@@ -2,10 +2,10 @@
 Globals1D;
 
 % Polynomial order used for approximation 
-N = 6;
-
+N = 2;
+K = 300;
 % Generate simple mesh
-[Nv, VX, K, EToV] = MeshGen1D(0.0, 1.0, 250);
+[Nv, VX, K, EToV] = MeshGen1D(0.0, 1.0, K);
 
 % Initialize solver and construct grid and metric
 StartUp1D;
